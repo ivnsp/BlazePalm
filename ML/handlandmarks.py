@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
+
 # Taken from https://github.com/vidursatija/BlazeFace-CoreML/blob/master/ML/blazeface.py
 class ResModule(nn.Module):
 	def __init__(self, in_channels, out_channels, stride=1):
@@ -141,14 +142,15 @@ class HandLandmarks(nn.Module):
 		reg_3d = self.reg_3d(ff) # 1x63x1x1
 		reg_3d = reg_3d.permute(0, 2, 3, 1).reshape(-1, 63) / 256.0
 
+
 	def load_weights(self, path):
-	    self.load_state_dict(torch.load(path))
-	    self.eval()        
+		self.load_state_dict(torch.load(path))
+		self.eval()        
 
 
 if __name__ == '__main__':
 	m = HandLandmarks()
-	import coremltools as ct
+	#import coremltools as ct
 	# m.load_weights("./HandLandmarks.pth")
 	# m.load_anchors('./anchors.npy')
 	m.eval()
